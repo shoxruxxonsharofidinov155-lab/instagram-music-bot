@@ -20,7 +20,7 @@ except ImportError:
 from ShazamAPI import Shazam
 import yt_dlp
 
-BOT_TOKEN = "8632342746:AAFRoAHE2M7LoWA6kSXcyioy1CAKhJgK7Cw"
+BOT_TOKEN = "8632342746:AAHrdd5NOBWgzf_UzHjL-btoNYqMKyYPXxE"
 
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
