@@ -15,7 +15,7 @@ async def start_handler(message: types.Message):
     
     # DIQQAT: Pastdagi havolani o'zingizning Netlify yoki Vercel havolangizga almashtiring. 
     # ENG MUHIMI: Havola oxirida ?v=2 turishi shart! (Keshni tozalash uchun)
-    mening_havolam = "https://sizning-saytingiz.netlify.app/?v=2"
+    mening_havolam = "https://luminous-caramel-50d975.netlify.app/"
     
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text="📚 Huquqiy Portalni Ochish", web_app=WebAppInfo(url=mening_havolam))]
