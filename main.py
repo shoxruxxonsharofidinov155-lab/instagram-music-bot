@@ -7,8 +7,8 @@ from aiogram.types import Message, FSInputFile
 import instaloader
 from shazamio import Shazam
 
-# --- Bot Sozlamalari ---
-BOT_TOKEN = "8632342746:AAFnfdQAVpsFr1agIE0hCrgAtrAeXpakyRM"
+# --- Bot Sozlamalari (Yangi tokeningiz) ---
+BOT_TOKEN = "8632342746:AAHYorlOiRZUR59M9r7_IQgkR4XnMYG0ry0"
 
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
@@ -56,8 +56,7 @@ async def download_instagram_video(message: Message):
             await msg.edit_text("📤 Video Telegram'ga yuklanmoqda...")
             video = FSInputFile(video_file)
             
-            # ❗ IPHONE UCHUN ASOSIY O'ZGARISH SHU YERDA
-            # Videoning o'lchamlarini (720x1280 - Reels formati) majburlab beramiz:
+            # iPhone uchun to'g'ri o'lchamlar
             await message.answer_video(
                 video=video, 
                 caption="✅ Video yuklab olindi!",
