@@ -1,4 +1,8 @@
-aiogram
-aiohttp
+aiogram>=3.0.0
 instaloader
-shazamio
+yt-dlp
+aiohttp
+ShazamAPI
+audioop-lts
+aiogram
+yt-dlp
