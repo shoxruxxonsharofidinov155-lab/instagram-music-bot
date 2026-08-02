@@ -4,6 +4,7 @@ from aiogram import Bot, Dispatcher, types
 from aiogram.filters import Command
 from aiogram.types import WebAppInfo, InlineKeyboardMarkup, InlineKeyboardButton
 
+# Botingiz tokeni
 BOT_TOKEN = "8632342746:AAHYorlOiRZUR59M9r7_IQgkR4XnMYG0ry0"
 
 bot = Bot(token=BOT_TOKEN)
@@ -11,10 +12,15 @@ dp = Dispatcher()
 
 @dp.message(Command("start"))
 async def start_handler(message: types.Message):
-    # Vercel yoki Netlify'ga joylagan index.html havolasini quyidagi url'ga yozasiz
+    
+    # DIQQAT: Pastdagi havolani o'zingizning Netlify yoki Vercel havolangizga almashtiring. 
+    # ENG MUHIMI: Havola oxirida ?v=2 turishi shart! (Keshni tozalash uchun)
+    mening_havolam = "https://sizning-saytingiz.netlify.app/?v=2"
+    
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="📚 Huquqiy Portalni Ochish", web_app=WebAppInfo(url="https://luminous-caramel-50d975.netlify.app/"))]
+        [InlineKeyboardButton(text="📚 Huquqiy Portalni Ochish", web_app=WebAppInfo(url=mening_havolam))]
     ])
+    
     await message.answer(
         "Assalomu alaykum! Huquqiy kutubxona va portal botiga xush kelibsiz.\n\n"
         "Portalni ochish uchun quyidagi tugmani bosing:",
