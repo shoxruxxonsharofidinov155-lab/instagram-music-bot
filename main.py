@@ -8,10 +8,8 @@ import instaloader
 from shazamio import Shazam
 
 # --- Bot Sozlamalari ---
-# Agar tokeningiz yangilangan bo'lsa, shu yerni o'zgartiring
 BOT_TOKEN = "8632342746:AAFnfdQAVpsFr1agIE0hCrgAtrAeXpakyRM"
 
-# Render/VPS da ishlayotgani uchun Proxy shart emas
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
 shazam = Shazam()
@@ -26,7 +24,6 @@ L = instaloader.Instaloader(
     save_metadata=False
 )
 
-# --- /start buyrug'i ---
 @dp.message(F.text == "/start")
 async def cmd_start(message: Message):
     await message.answer("Salom! Menga Instagram link yuboring (video yuklash uchun) yoki musiqa izlash uchun audio/video/ovozli xabar yuboring.")
@@ -36,7 +33,6 @@ async def cmd_start(message: Message):
 async def download_instagram_video(message: Message):
     msg = await message.answer("📥 Instagram'dan video yuklanmoqda, biroz kuting...")
     
-    # Linkdan shortcode'ni ajratib olish
     match = re.search(r'(?:reel|p)/([^/?#&]+)', message.text)
     if not match:
         await msg.edit_text("❌ Yaroqli Instagram havolasi topilmadi.")
@@ -46,11 +42,9 @@ async def download_instagram_video(message: Message):
     target_dir = f"downloads_{uuid.uuid4().hex}"
     
     try:
-        # Videoni yuklab olish
         post = instaloader.Post.from_shortcode(L.context, shortcode)
         L.download_post(post, target=target_dir)
         
-        # Yuklangan mp4 faylni topish
         video_file = None
         for root, dirs, files in os.walk(target_dir):
             for file in files:
@@ -61,7 +55,15 @@ async def download_instagram_video(message: Message):
         if video_file:
             await msg.edit_text("📤 Video Telegram'ga yuklanmoqda...")
             video = FSInputFile(video_file)
-            await message.answer_video(video=video, caption="✅ Video yuklab olindi!")
+            
+            # ❗ IPHONE UCHUN ASOSIY O'ZGARISH SHU YERDA
+            # Videoning o'lchamlarini (720x1280 - Reels formati) majburlab beramiz:
+            await message.answer_video(
+                video=video, 
+                caption="✅ Video yuklab olindi!",
+                width=720,
+                height=1280
+            )
             await msg.delete()
         else:
             await msg.edit_text("❌ Video fayli topilmadi.")
@@ -69,7 +71,6 @@ async def download_instagram_video(message: Message):
     except Exception as e:
         await msg.edit_text("❌ Videoni yuklashda xatolik yuz berdi. (Instagram yopiq profil bo'lishi mumkin)")
     finally:
-        # Vaqtincha ochilgan papka va fayllarni tozalab tashlash (server to'lib ketmasligi uchun)
         if os.path.exists(target_dir):
             for root, dirs, files in os.walk(target_dir, topdown=False):
                 for name in files:
@@ -83,7 +84,6 @@ async def download_instagram_video(message: Message):
 async def recognize_music(message: Message):
     msg = await message.answer("🔍 Musiqa qidirilmoqda...")
     
-    # Fayl ID'sini ajratib olish (audio, ovozli xabar yoki video bo'lishidan qat'i nazar)
     file_id = message.audio.file_id if message.audio else (
         message.voice.file_id if message.voice else message.video.file_id
     )
@@ -108,7 +108,6 @@ async def recognize_music(message: Message):
         if os.path.exists(file_path):
             os.remove(file_path)
 
-# --- Asosiy ishga tushirish qismi ---
 async def main():
     print("Bot muvaffaqiyatli ishga tushdi...")
     await dp.start_polling(bot)
