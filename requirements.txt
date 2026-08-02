@@ -3,4 +3,3 @@ instaloader
 yt-dlp
 aiohttp
 shazamio
-pyaudioop
