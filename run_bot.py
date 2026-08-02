@@ -6,7 +6,7 @@ from aiohttp import web
 from aiogram import Bot, Dispatcher, F
 from aiogram.types import Message, FSInputFile, InlineKeyboardMarkup, InlineKeyboardButton
 import instaloader
-from shazamio import Shazam
+from shazamAPI import Shazam
 
 # --- Render Port / Dummy Web Server (Timed Out bermasligi uchun) ---
 async def handle(request):
