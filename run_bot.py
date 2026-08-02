@@ -26,15 +26,19 @@ async def link_handler(message: types.Message):
     
     output_filename = "downloaded_video.mp4"
     
-    ydl_opts = {
+   ydl_opts = {
         'format': 'best[filesize<50M]/best',
         'outtmpl': output_filename,
         'noplaylist': True,
+        'extractor_args': {
+            'youtube': {
+                'player_client': ['android', 'web']
+            }
+        },
         'http_headers': {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
         }
     }
-
     try:
         # yt-dlp yordamida yuklab olish
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
