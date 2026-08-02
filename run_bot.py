@@ -13,7 +13,7 @@ dp = Dispatcher()
 async def start_handler(message: types.Message):
     # Vercel yoki Netlify'ga joylagan index.html havolasini quyidagi url'ga yozasiz
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="📚 Huquqiy Portalni Ochish", web_app=WebAppInfo(url="https://sizning-sayt-manzilingiz.vercel.app"))]
+        [InlineKeyboardButton(text="📚 Huquqiy Portalni Ochish", web_app=WebAppInfo(url="https://luminous-caramel-50d975.netlify.app/"))]
     ])
     await message.answer(
         "Assalomu alaykum! Huquqiy kutubxona va portal botiga xush kelibsiz.\n\n"
