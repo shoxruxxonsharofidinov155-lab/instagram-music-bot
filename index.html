@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Huquqiy Portal</title>
-    <!-- Telegram Web App skripti -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         :root {
@@ -15,229 +14,28 @@
             --button-text: var(--tg-theme-button-text-color, #ffffff);
         }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 15px;
-        }
-
-        h1 {
-            font-size: 22px;
-            text-align: center;
-            margin-bottom: 20px;
-            color: var(--button-color);
-        }
-
-        .menu-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .menu-card {
-            background: var(--card-bg);
-            padding: 16px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            transition: transform 0.2s, background 0.2s;
-        }
-
-        .menu-card:active {
-            transform: scale(0.98);
-        }
-
-        .icon {
-            font-size: 28px;
-            margin-right: 15px;
-            min-width: 40px;
-            text-align: center;
-        }
-
-        .info h3 {
-            margin: 0 0 4px 0;
-            font-size: 17px;
-            color: var(--text-color);
-        }
-
-        .info p {
-            margin: 0;
-            font-size: 13px;
-            color: #777777;
-        }
-
-        /* Modal oynalar dizayni */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5);
-            justify-content: center;
-            align-items: flex-end;
-            z-index: 100;
-        }
-
-        .modal-content {
-            background: var(--card-bg);
-            width: 100%;
-            max-height: 85vh;
-            border-radius: 20px 20px 0 0;
-            padding: 20px;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-            color: var(--text-color);
-        }
-
-        .site-item {
-            padding: 12px;
-            background: var(--bg-color);
-            border-radius: 8px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        /* Mashhur shaxslar kartochkalari */
-        .person-card {
-            background: var(--bg-color);
-            border-radius: 10px;
-            padding: 12px;
-            margin-bottom: 12px;
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-        .person-img {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        /* Hamjamiyat chat/post elementlari */
-        .community-box {
-            flex: 1;
-            max-height: 50vh;
-            overflow-y: auto;
-            background: var(--bg-color);
-            padding: 10px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .post-item {
-            background: var(--card-bg);
-            padding: 10px 14px;
-            border-radius: 10px;
-            border: 1px solid #ddd;
-        }
-
-        .post-author {
-            font-weight: bold;
-            font-size: 13px;
-            color: var(--button-color);
-            margin-bottom: 4px;
-        }
-
-        .post-text {
-            font-size: 14px;
-            margin: 0;
-        }
-
-        /* AI Chat Oynasi */
-        .chat-box {
-            flex: 1;
-            max-height: 52vh;
-            overflow-y: auto;
-            background: var(--bg-color);
-            padding: 12px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .chat-message {
-            padding: 12px 14px;
-            border-radius: 12px;
-            max-width: 88%;
-            font-size: 13.5px;
-            line-height: 1.5;
-        }
-
-        .user-msg {
-            background: var(--button-color);
-            color: var(--button-text);
-            align-self: flex-end;
-        }
-
-        .ai-msg {
-            background: var(--card-bg);
-            color: var(--text-color);
-            align-self: flex-start;
-            border: 1px solid #ddd;
-        }
-
-        .chat-input-area {
-            display: flex;
-            gap: 8px;
-            flex-direction: column;
-        }
-
-        .chat-input, .post-input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 14px;
-            outline: none;
-            background: var(--bg-color);
-            color: var(--text-color);
-            box-sizing: border-box;
-        }
-
-        .send-btn {
-            background: var(--button-color);
-            color: var(--button-text);
-            border: none;
-            padding: 10px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            width: 100%;
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 30px;
-            font-size: 12px;
-            color: #888888;
-        }
+        body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg-color); color: var(--text-color); margin: 0; padding: 15px; }
+        h1 { font-size: 22px; text-align: center; margin-bottom: 20px; color: var(--button-color); }
+        .menu-grid { display: flex; flex-direction: column; gap: 12px; }
+        .menu-card { background: var(--card-bg); padding: 16px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); display: flex; align-items: center; cursor: pointer; }
+        .icon { font-size: 28px; margin-right: 15px; min-width: 40px; text-align: center; }
+        .info h3 { margin: 0 0 4px 0; font-size: 17px; }
+        .info p { margin: 0; font-size: 13px; color: #777; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: flex-end; z-index: 100; }
+        .modal-content { background: var(--card-bg); width: 100%; max-height: 85vh; border-radius: 20px 20px 0 0; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .close-btn { background: none; border: none; font-size: 20px; cursor: pointer; color: var(--text-color); }
+        .chat-box { flex: 1; max-height: 52vh; overflow-y: auto; background: var(--bg-color); padding: 12px; border-radius: 10px; margin-bottom: 15px; display: flex; flex-direction: column; gap: 12px; }
+        .chat-message { padding: 12px 14px; border-radius: 12px; max-width: 88%; font-size: 13.5px; line-height: 1.5; }
+        .user-msg { background: var(--button-color); color: var(--button-text); align-self: flex-end; }
+        .ai-msg { background: var(--card-bg); color: var(--text-color); align-self: flex-start; border: 1px solid #ddd; }
+        .chat-input-area { display: flex; gap: 8px; flex-direction: column; }
+        .chat-input { padding: 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 14px; outline: none; background: var(--bg-color); color: var(--text-color); }
+        .send-btn { background: var(--button-color); color: var(--button-text); border: none; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .person-card { background: var(--bg-color); border-radius: 10px; padding: 12px; margin-bottom: 12px; display: flex; gap: 12px; align-items: center; }
+        .person-img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; }
+        .site-item { padding: 12px; background: var(--bg-color); border-radius: 8px; margin-bottom: 10px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .footer { text-align: center; margin-top: 30px; font-size: 12px; color: #888888; }
     </style>
 </head>
 <body>
@@ -245,105 +43,51 @@
     <h1>⚖️ Huquqiy Portal & Kutubxona</h1>
     
     <div class="menu-grid">
-        <!-- 1. Kutubxona -->
-        <div class="menu-card" onclick="openLibrary()">
-            <div class="icon">📚</div>
-            <div class="info">
-                <h3>Kutubxona</h3>
-                <p>TDYU elektron kutubxonasi va huquqiy darsliklar</p>
-            </div>
+        <div class="menu-card" onclick="tg.openLink('https://elib.tsul.uz/')">
+            <div class="icon">📚</div><div class="info"><h3>Kutubxona</h3><p>TDYU elektron kutubxonasi va huquqiy darsliklar</p></div>
         </div>
-
-        <!-- 2. Sun'iy intellekt -->
         <div class="menu-card" onclick="openModal('aiModal')">
-            <div class="icon">🤖</div>
-            <div class="info">
-                <h3>Sun'iy Intellekt</h3>
-                <p>Professional huquqiy ekspert (Lex.uz va bazalar asosida)</p>
-            </div>
+            <div class="icon">🤖</div><div class="info"><h3>Sun'iy Intellekt</h3><p>Professional huquqiy ekspert (Haqiqiy AI ulangan)</p></div>
         </div>
-
-        <!-- 3. Mashhur shaxslar -->
         <div class="menu-card" onclick="openFamousModal()">
-            <div class="icon">👑</div>
-            <div class="info">
-                <h3>Mashhur Shaxslar</h3>
-                <p>Kunlik huquqiy ma'lumotlar va shaxslar</p>
-            </div>
+            <div class="icon">👑</div><div class="info"><h3>Mashhur Shaxslar</h3><p>Kunlik huquqiy ma'lumotlar va shaxslar</p></div>
         </div>
-
-        <!-- 4. Hamjamiyat -->
-        <div class="menu-card" onclick="openModal('communityModal')">
-            <div class="icon">👥</div>
-            <div class="info">
-                <h3>Hamjamiyat</h3>
-                <p>Foydalanuvchilar fikrlari, savollar va muhokamalar</p>
-            </div>
-        </div>
-
-        <!-- 5. Foydali saytlar -->
         <div class="menu-card" onclick="openModal('sitesModal')">
-            <div class="icon">🌐</div>
-            <div class="info">
-                <h3>Foydali Saytlar</h3>
-                <p>Lex.uz, Sud.uz, Norma, Yurxizmat platformalari</p>
-            </div>
+            <div class="icon">🌐</div><div class="info"><h3>Foydali Saytlar</h3><p>Lex.uz, Sud.uz, Norma, Yurxizmat platformalari</p></div>
         </div>
     </div>
 
-    <!-- 1. AI Chat Modal -->
+    <!-- AI Chat Modal -->
     <div id="aiModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>🤖 Professional Huquqiy Ekspert AI</h3>
+                <h3>🤖 Huquqiy AI Maslahatchi</h3>
                 <button class="close-btn" onclick="closeModal('aiModal')">✕</button>
             </div>
             <div class="chat-box" id="chatBox">
                 <div class="chat-message ai-msg">
-                    <b>Assalomu alaykum!</b> Men O'zbekiston Respublikasining amaldagi qonunchiligi (Lex.uz, Kodekslar va normativ-huquqiy hujjatlar) asosida professional huquqiy tahlil taqdim etuvchi sun'iy intellekt yordamchisiman. 
-                    <br><br>Savolingizni yuboring (masalan: <i>mehnat shartnomasi, soliq majburiyati, sudga murojaat, kiber huquq</i>).
+                    <b>Assalomu alaykum!</b> Men O'zbekiston qonunchiligi asosida ishlovchi haqiqiy sun'iy intellektman. Istalgan huquqiy savolingizni yozing!
                 </div>
             </div>
             <div class="chat-input-area">
                 <input type="text" id="userInput" class="chat-input" placeholder="Huquqiy savolingizni yozing...">
-                <button class="send-btn" onclick="sendMessage()">Professional tahlil olish</button>
+                <button class="send-btn" onclick="sendMessage()">Javob olish</button>
             </div>
         </div>
     </div>
 
-    <!-- 2. Mashhur shaxslar Modal -->
+    <!-- Mashhur shaxslar Modal -->
     <div id="famousModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>👑 Mashhur Shaxslar & Kun Ma'lumoti</h3>
+                <h3>👑 Mashhur Shaxslar</h3>
                 <button class="close-btn" onclick="closeModal('famousModal')">✕</button>
             </div>
             <div style="overflow-y: auto; max-height: 65vh;" id="famousListContainer"></div>
         </div>
     </div>
 
-    <!-- 3. Hamjamiyat Modal -->
-    <div id="communityModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>👥 Hamjamiyat Muhokamasi</h3>
-                <button class="close-btn" onclick="closeModal('communityModal')">✕</button>
-            </div>
-            <div class="community-box" id="communityBox">
-                <div class="post-item">
-                    <div class="post-author">Admin</div>
-                    <p class="post-text">Hamjamiyatga xush kelibsiz! Bu yerda huquqiy mavzularda fikr almashishingiz mumkin.</p>
-                </div>
-            </div>
-            <div class="chat-input-area">
-                Ismingiz: <input type="text" id="authorInput" class="post-input" placeholder="Ismingiz...">
-                Xabaringiz: <input type="text" id="postInput" class="post-input" placeholder="Fikringizni yozing...">
-                <button class="send-btn" onclick="sendPost()">Post qoldirish</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- 4. Foydali saytlar Modal -->
+    <!-- Foydali saytlar Modal -->
     <div id="sitesModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -356,42 +100,24 @@
             <div class="site-item" onclick="tg.openLink('https://public.sud.uz/')">
                 <div><strong>Public.sud.uz</strong><p style="margin:2px 0 0;font-size:12px;color:#77;">Sudlarning interaktiv xizmatlari</p></div><span>➡️</span>
             </div>
-            <div class="site-item" onclick="tg.openLink('https://www.norma.uz/')">
-                <div><strong>Norma.uz</strong><p style="margin:2px 0 0;font-size:12px;color:#77;">Huquqiy tahlillar va sharhlar</p></div><span>➡️</span>
-            </div>
-            <div class="site-item" onclick="tg.openLink('https://yurxizmat.uz/uz')">
-                <div><strong>Yurxizmat.uz</strong><p style="margin:2px 0 0;font-size:12px;color:#77;">Huquqiy xizmatlar platformasi</p></div><span>➡️</span>
-            </div>
         </div>
-    </div>
-
-    <div class="footer">
-        Powered by Telegram Mini App & AI
     </div>
 
     <script>
         const tg = window.Telegram.WebApp;
         tg.expand();
 
-        function openLibrary() {
-            tg.openLink('https://elib.tsul.uz/');
-        }
+        function openModal(modalId) { document.getElementById(modalId).style.display = 'flex'; }
+        function closeModal(modalId) { document.getElementById(modalId).style.display = 'none'; }
 
-        function openModal(modalId) {
-            document.getElementById(modalId).style.display = 'flex';
-        }
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
-
-        // =========================================================================
-        // 👑 MASHHUR SHAXSLAR (Har kuni shu yerdagi ma'lumotni o'zgartirasiz)
-        // =========================================================================
+        // ==========================================
+        // MASHHUR SHAXSLAR
+        // ==========================================
         const famousPeople = [
             {
-                name: "Bugungi shaxs / Mutaxassis",
-                text: "Bu yerga har kuni o'zingiz xohlagan qisqa matn va ma'lumotni yozasiz.",
-                image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Alisher_Navoi_portrait.jpg/440px-Alisher_Navoi_portrait.jpg"
+                name: "Amir Temur",
+                text: "\"Kuch adolatdadir!\" - buyuk sarkarda va davlat arbobining huquqiy qarashlari Temur tuzuklarida o'z aksini topgan.",
+                image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Amir_Timur_portrait.jpg/440px-Amir_Timur_portrait.jpg"
             }
         ];
 
@@ -406,87 +132,62 @@
                             <strong style="font-size:15px; color:var(--button-color);">${p.name}</strong>
                             <p style="margin:4px 0 0; font-size:13px;">${p.text}</p>
                         </div>
-                    </div>
-                `;
+                    </div>`;
             });
             openModal('famousModal');
         }
 
-        // =========================================================================
-        // 🤖 PROFESSIONAL YURIDIK AI EKSPERT LOGIKASI
-        // =========================================================================
-        function sendMessage() {
+        // ==========================================
+        // 🤖 HAQIQIY SUN'IY INTELLEKT (GEMINI API)
+        // ==========================================
+        
+        // DIQQAT: Olingan API kalitni pastdagi qo'shtirnoq ichiga yozing!
+        const API_KEY = "AQ.Ab8RN6IA-Nl4tis2cKDvrwgzH3eJeln4_FEzf3Kh7Lf07Tp2aQ";
+
+        async function sendMessage() {
             const input = document.getElementById('userInput');
             const chatBox = document.getElementById('chatBox');
-            const text = input.value.trim().toLowerCase();
-            if (!text) return;
+            const userText = input.value.trim();
+            if (!userText) return;
 
-            // Foydalanuvchi xabarini chiqarish
-            chatBox.innerHTML += `<div class="chat-message user-msg">${input.value}</div>`;
+            // Foydalanuvchi xabari
+            chatBox.innerHTML += `<div class="chat-message user-msg">${userText}</div>`;
             input.value = '';
             chatBox.scrollTop = chatBox.scrollHeight;
 
-            // Professional huquqiy xulosa tuzish
-            setTimeout(() => {
-                let aiReply = `
-                    <b>📋 HUQUQIY TAHLIL VA XULOSA:</b><br><br>
-                    <b>1. Huquqiy asos:</b> O'zbekiston Respublikasining Konstitutsiyasi va amaldagi qonunchilik hujjatlariga muvofiq, ko'tarilgan masala umumiy huquqiy normalar doirasida tartibga solinadi.<br><br>
-                    <b>2. Batafsil tahlil:</b> Siz keltirib o'tgan holat bo'yicha tegishli davlat idoralari yoki idoralararo nizomlarga asosan huquq va majburiyatlar belgilanadi. Lex.uz bazasidagi tegishli bob va moddalar talablariga rioya etilishi shart.<br><br>
-                    <b>3. Tavsiya:</b> Aniq shartnomaviy yoki amaliy harakatlarni amalga oshirishdan oldin birlamchi hujjatlarni puxta o'rganib chiqish tavsiya etiladi.
-                `;
+            // Kutilmoqda yozuvi
+            const loadingId = 'loading-' + Date.now();
+            chatBox.innerHTML += `<div class="chat-message ai-msg" id="${loadingId}">...Huquqiy bazalar tahlil qilinmoqda (bu 5-10 soniya olishi mumkin)...</div>`;
+            chatBox.scrollTop = chatBox.scrollHeight;
 
-                if (text.includes("mehnat") || text.includes("ish") || text.includes("ta'til") || text.includes("ish haqi")) {
-                    aiReply = `
-                        <b>📋 MEHNAT HUQUQI BO'YICHA EKSPERT XULOSASI:</b><br><br>
-                        <b>1. Huquqiy asos:</b> O'zbekiston Respublikasining <i>Mehnat kodeksi</i> hamda tegishli normativ hujjatlar.<br><br>
-                        <b>2. Tahlil:</b> Xodim va ish beruvchi o'rtasidagi munosabatlar faqat yozma tuzilgan mehnat shartnomasi orqali tartibga solinadi. Mehnat ta'tili, ish haqi va ishdan bo'shatish tartiblari Mehnat kodeksining tegishli moddalarida qat'iy belgilangan bo'lib, tomonlarning bir tomonlama huquqlarini cheklashga yo'l qo'yilmaydi.<br><br>
-                        <b>3. Tavsiya:</b> Nizoli holatlarda dastlab korxona rahbariyatiga yozma ariza bilan murojaat qilish, natija bo'lmaganda Bandlik bosh boshqarmasi yoki sudga murojaat qilish tavsiya etiladi.
-                    `;
-                } else if (text.includes("soliq") || text.includes("daromad") || text.includes("to'lov")) {
-                    aiReply = `
-                        <b>📋 SOLIQ HUQUQI BO'YICHA EKSPERT XULOSASI:</b><br><br>
-                        <b>1. Huquqiy asos:</b> O'zbekiston Respublikasining <i>Soliq kodeksi</i>.<br><br>
-                        <b>2. Tahlil:</b> Soliq to'lovchilar o'z vaqtida va to'liq hajmda soliq majburiyatlarini bajarishlari shart. Soliq stavkalari va imtiyozlar Soliq kodeksining maxsus qismlarida aniq ko'rsatib o'tilgan.<br><br>
-                        <b>3. Tavsiya:</b> Soliq hisobotlarini o'z vaqtida topshirish va Norma.uz yoki soliq qo'mitasining shaxsiy kabineti orqali ma'lumotlarni tekshirib borish tavsiya etiladi.
-                    `;
-                } else if (text.includes("sud") || text.includes("davo") || text.includes("da'vo")) {
-                    aiReply = `
-                        <b>📋 SUD TARTIBIDAGI HIMoya BO'YICHA XULOSA:</b><br><br>
-                        <b>1. Huquqiy asos:</b> Fuqarolik protsessual va Iqtisodiy protsessual kodekslari.<br><br>
-                        <b>2. Tahlil:</b> Buzilgan huquqlarni tiklash uchun sudga da'vo ariza kiritish tartibi belgilangan. Ariza belgilangan talablarga (javobgar, vajlar, dalillar va davlat boji to'langanligi) mos kelishi shart.<br><br>
-                        <b>3. Tavsiya:</b> Interaktiv tarzda hujjat yuborish uchun rasmiy <i>Public.sud.uz</i> portali yoki E-sud tizimidan foydalanish tavsiya etiladi.
-                    `;
-                } else if (text.includes("kiber") || text.includes("it") || text.includes("internet") || text.includes("shaxsiy ma'lumot")) {
-                    aiReply = `
-                        <b>💻 KIBER HUQUQ (CYBER LAW) BO'YICHA EKSPERT XULOSASI:</b><br><br>
-                        <b>1. Huquqiy asos:</b> "Shaxsiy ma'lumotlar to'g'risida"gi Qonun va Axborot kodeksi.<br><br>
-                        <b>2. Tahlil:</b> Raqamli muhitda shaxsiy ma'lumotlarni yig'ish, qayta ishlash va tarqatish qat'iy qonun bilan himoyalangan. Ruxsatsiz ma'lumot tarqatish yoki kiberjinoyatlar uchun tegishli javobgarlik belgilanadi.<br><br>
-                        <b>3. Tavsiya:</b> Axborot xavfsizligi qoidalariga rioya qilish va raqamli resurslardan foydalanishda huquqiy normalarga amal qilish zarur.
-                    `;
+            // AI'ga buyruq: U o'zini yuristdek tutishi kerak
+            const systemPrompt = "Siz O'zbekiston qonunchiligi bo'yicha professional yuridik ekspertsiz. Foydalanuvchi savoliga qonun moddalari, asoslar va yuridik maslahat shaklida, o'zbek tilida professional javob bering. Savol: " + userText;
+
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: systemPrompt }] }]
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.candidates && data.candidates[0]) {
+                    let aiText = data.candidates[0].content.parts[0].text;
+                    // Yulduzchalarni qalin (bold) matnga, probellarni yangi qatorga o'tkazish
+                    aiText = aiText.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>').replace(/\n/g, '<br>');
+                    document.getElementById(loadingId).innerHTML = aiText;
+                } else {
+                    document.getElementById(loadingId).innerHTML = "Kechirasiz, xatolik yuz berdi. Iltimos, qayta urinib ko'ring.";
                 }
-
-                chatBox.innerHTML += `<div class="chat-message ai-msg">${aiReply}</div>`;
-                chatBox.scrollTop = chatBox.scrollHeight;
-            }, 1000);
-        }
-
-        // Hamjamiyat Post Mantiqi
-        function sendPost() {
-            const author = document.getElementById('authorInput').value.trim() || "Foydalanuvchi";
-            const text = document.getElementById('postInput').value.trim();
-            const communityBox = document.getElementById('communityBox');
-
-            if (!text) return;
-
-            communityBox.innerHTML += `
-                <div class="post-item">
-                    <div class="post-author">${author}</div>
-                    <p class="post-text">${text}</p>
-                </div>
-            `;
-
-            document.getElementById('postInput').value = '';
-            communityBox.scrollTop = communityBox.scrollHeight;
+            } catch (error) {
+                document.getElementById(loadingId).innerHTML = "Xatolik: API ulanishida muammo bor. API Kalitingizni to'g'ri kiritganingizni tekshiring.";
+            }
+            chatBox.scrollTop = chatBox.scrollHeight;
         }
     </script>
 
