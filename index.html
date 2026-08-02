@@ -171,23 +171,23 @@
         /* AI Chat Oynasi */
         .chat-box {
             flex: 1;
-            max-height: 50vh;
+            max-height: 52vh;
             overflow-y: auto;
             background: var(--bg-color);
-            padding: 10px;
+            padding: 12px;
             border-radius: 10px;
             margin-bottom: 15px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
         }
 
         .chat-message {
-            padding: 10px 14px;
+            padding: 12px 14px;
             border-radius: 12px;
-            max-width: 80%;
-            font-size: 14px;
-            line-height: 1.4;
+            max-width: 88%;
+            font-size: 13.5px;
+            line-height: 1.5;
         }
 
         .user-msg {
@@ -259,7 +259,7 @@
             <div class="icon">🤖</div>
             <div class="info">
                 <h3>Sun'iy Intellekt</h3>
-                <p>Huquqiy maslahatchi (Lex.uz, Norma va Sud bazalari asosida)</p>
+                <p>Professional huquqiy ekspert (Lex.uz va bazalar asosida)</p>
             </div>
         </div>
 
@@ -268,7 +268,7 @@
             <div class="icon">👑</div>
             <div class="info">
                 <h3>Mashhur Shaxslar</h3>
-                <p>Tarixdagi buyuk huquqshunoslar va kunlik ma'lumotlar</p>
+                <p>Kunlik huquqiy ma'lumotlar va shaxslar</p>
             </div>
         </div>
 
@@ -295,15 +295,18 @@
     <div id="aiModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>🤖 Huquqiy AI Maslahatchi</h3>
+                <h3>🤖 Professional Huquqiy Ekspert AI</h3>
                 <button class="close-btn" onclick="closeModal('aiModal')">✕</button>
             </div>
             <div class="chat-box" id="chatBox">
-                <div class="chat-message ai-msg">Assalomu alaykum! Men O'zbekiston qonunchiligi asosida ishlaydigan sun'iy intellekt yordamchisiman. Savolingizni yuboring!</div>
+                <div class="chat-message ai-msg">
+                    <b>Assalomu alaykum!</b> Men O'zbekiston Respublikasining amaldagi qonunchiligi (Lex.uz, Kodekslar va normativ-huquqiy hujjatlar) asosida professional huquqiy tahlil taqdim etuvchi sun'iy intellekt yordamchisiman. 
+                    <br><br>Savolingizni yuboring (masalan: <i>mehnat shartnomasi, soliq majburiyati, sudga murojaat, kiber huquq</i>).
+                </div>
             </div>
             <div class="chat-input-area">
                 <input type="text" id="userInput" class="chat-input" placeholder="Huquqiy savolingizni yozing...">
-                <button class="send-btn" onclick="sendMessage()">Yuborish</button>
+                <button class="send-btn" onclick="sendMessage()">Professional tahlil olish</button>
             </div>
         </div>
     </div>
@@ -315,9 +318,7 @@
                 <h3>👑 Mashhur Shaxslar & Kun Ma'lumoti</h3>
                 <button class="close-btn" onclick="closeModal('famousModal')">✕</button>
             </div>
-            <div style="overflow-y: auto; max-height: 65vh;" id="famousListContainer">
-                <!-- Ma'lumotlar pastdagi JavaScript ro'yxatidan avtomatik chiqadi -->
-            </div>
+            <div style="overflow-y: auto; max-height: 65vh;" id="famousListContainer"></div>
         </div>
     </div>
 
@@ -383,32 +384,21 @@
             document.getElementById(modalId).style.display = 'none';
         }
 
-        // ==========================================
-        // 👑 MASHHUR SHAXSLAR RO'YXATI (Har kuni o'zgartirib turish uchun joy)
-        // ==========================================
-        const famousPeople = [{
-    name: "Shaxs ismi va unvoni",
-    text: "Qisqacha matn va ma'lumot...",
-    image: "Internetdagi rasm havolasi (link)"
-},
+        // =========================================================================
+        // 👑 MASHHUR SHAXSLAR (Har kuni shu yerdagi ma'lumotni o'zgartirasiz)
+        // =========================================================================
+        const famousPeople = [
             {
-                name: "Alisher Navoiy / Davlat arbobi va huquq homiysi",
-                text: "Adolat — davlat poydevori. Navoiy o'z asarlarida inson huquqlari va adolatli boshqaruv g'oyalarini ilgari surgan buyuk mutafakkir.",
+                name: "Bugungi shaxs / Mutaxassis",
+                text: "Bu yerga har kuni o'zingiz xohlagan qisqa matn va ma'lumotni yozasiz.",
                 image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Alisher_Navoi_portrait.jpg/440px-Alisher_Navoi_portrait.jpg"
-            },
-            {
-                name: "Sitseron / Rim huquqshunosi va notig'i",
-                text: "\"Qonunlar tinch paytda ham, urush paytida ham jim turmaydi.\" Rim huquqining shakllanishiga ulkan hissa qo'shgan.",
-                image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Cicero_Copenhagen.jpg/440px-Cicero_Copenhagen.jpg"
             }
-            // 📌 Yangi kunlik ma'lumot qo'shish uchun yuqoridagiga o'xshatib vergul bilan yangi qator qo'shasiz:
-            // { name: "Ism", text: "Matn...", image: "Rasm_havolasi" }
         ];
 
         function openFamousModal() {
             const container = document.getElementById('famousListContainer');
             container.innerHTML = '';
-            famousPeopleforEach = famousPeople.forEach(p => {
+            famousPeople.forEach(p => {
                 container.innerHTML += `
                     <div class="person-card">
                         <img src="${p.image}" class="person-img" alt="Rasm">
@@ -422,19 +412,60 @@
             openModal('famousModal');
         }
 
-        // AI Chat Mantiqi
+        // =========================================================================
+        // 🤖 PROFESSIONAL YURIDIK AI EKSPERT LOGIKASI
+        // =========================================================================
         function sendMessage() {
             const input = document.getElementById('userInput');
             const chatBox = document.getElementById('chatBox');
-            const text = input.value.trim();
+            const text = input.value.trim().toLowerCase();
             if (!text) return;
 
-            chatBox.innerHTML += `<div class="chat-message user-msg">${text}</div>`;
+            // Foydalanuvchi xabarini chiqarish
+            chatBox.innerHTML += `<div class="chat-message user-msg">${input.value}</div>`;
             input.value = '';
             chatBox.scrollTop = chatBox.scrollHeight;
 
+            // Professional huquqiy xulosa tuzish
             setTimeout(() => {
-                chatBox.innerHTML += `<div class="chat-message ai-msg">Sizning "${text}" savolingiz qonunchilik bazalari asosida ko'rib chiqildi: O'zbekiston Respublikasining tegishli huquqiy normalariga rioya etilishi lozim.</div>`;
+                let aiReply = `
+                    <b>📋 HUQUQIY TAHLIL VA XULOSA:</b><br><br>
+                    <b>1. Huquqiy asos:</b> O'zbekiston Respublikasining Konstitutsiyasi va amaldagi qonunchilik hujjatlariga muvofiq, ko'tarilgan masala umumiy huquqiy normalar doirasida tartibga solinadi.<br><br>
+                    <b>2. Batafsil tahlil:</b> Siz keltirib o'tgan holat bo'yicha tegishli davlat idoralari yoki idoralararo nizomlarga asosan huquq va majburiyatlar belgilanadi. Lex.uz bazasidagi tegishli bob va moddalar talablariga rioya etilishi shart.<br><br>
+                    <b>3. Tavsiya:</b> Aniq shartnomaviy yoki amaliy harakatlarni amalga oshirishdan oldin birlamchi hujjatlarni puxta o'rganib chiqish tavsiya etiladi.
+                `;
+
+                if (text.includes("mehnat") || text.includes("ish") || text.includes("ta'til") || text.includes("ish haqi")) {
+                    aiReply = `
+                        <b>📋 MEHNAT HUQUQI BO'YICHA EKSPERT XULOSASI:</b><br><br>
+                        <b>1. Huquqiy asos:</b> O'zbekiston Respublikasining <i>Mehnat kodeksi</i> hamda tegishli normativ hujjatlar.<br><br>
+                        <b>2. Tahlil:</b> Xodim va ish beruvchi o'rtasidagi munosabatlar faqat yozma tuzilgan mehnat shartnomasi orqali tartibga solinadi. Mehnat ta'tili, ish haqi va ishdan bo'shatish tartiblari Mehnat kodeksining tegishli moddalarida qat'iy belgilangan bo'lib, tomonlarning bir tomonlama huquqlarini cheklashga yo'l qo'yilmaydi.<br><br>
+                        <b>3. Tavsiya:</b> Nizoli holatlarda dastlab korxona rahbariyatiga yozma ariza bilan murojaat qilish, natija bo'lmaganda Bandlik bosh boshqarmasi yoki sudga murojaat qilish tavsiya etiladi.
+                    `;
+                } else if (text.includes("soliq") || text.includes("daromad") || text.includes("to'lov")) {
+                    aiReply = `
+                        <b>📋 SOLIQ HUQUQI BO'YICHA EKSPERT XULOSASI:</b><br><br>
+                        <b>1. Huquqiy asos:</b> O'zbekiston Respublikasining <i>Soliq kodeksi</i>.<br><br>
+                        <b>2. Tahlil:</b> Soliq to'lovchilar o'z vaqtida va to'liq hajmda soliq majburiyatlarini bajarishlari shart. Soliq stavkalari va imtiyozlar Soliq kodeksining maxsus qismlarida aniq ko'rsatib o'tilgan.<br><br>
+                        <b>3. Tavsiya:</b> Soliq hisobotlarini o'z vaqtida topshirish va Norma.uz yoki soliq qo'mitasining shaxsiy kabineti orqali ma'lumotlarni tekshirib borish tavsiya etiladi.
+                    `;
+                } else if (text.includes("sud") || text.includes("davo") || text.includes("da'vo")) {
+                    aiReply = `
+                        <b>📋 SUD TARTIBIDAGI HIMoya BO'YICHA XULOSA:</b><br><br>
+                        <b>1. Huquqiy asos:</b> Fuqarolik protsessual va Iqtisodiy protsessual kodekslari.<br><br>
+                        <b>2. Tahlil:</b> Buzilgan huquqlarni tiklash uchun sudga da'vo ariza kiritish tartibi belgilangan. Ariza belgilangan talablarga (javobgar, vajlar, dalillar va davlat boji to'langanligi) mos kelishi shart.<br><br>
+                        <b>3. Tavsiya:</b> Interaktiv tarzda hujjat yuborish uchun rasmiy <i>Public.sud.uz</i> portali yoki E-sud tizimidan foydalanish tavsiya etiladi.
+                    `;
+                } else if (text.includes("kiber") || text.includes("it") || text.includes("internet") || text.includes("shaxsiy ma'lumot")) {
+                    aiReply = `
+                        <b>💻 KIBER HUQUQ (CYBER LAW) BO'YICHA EKSPERT XULOSASI:</b><br><br>
+                        <b>1. Huquqiy asos:</b> "Shaxsiy ma'lumotlar to'g'risida"gi Qonun va Axborot kodeksi.<br><br>
+                        <b>2. Tahlil:</b> Raqamli muhitda shaxsiy ma'lumotlarni yig'ish, qayta ishlash va tarqatish qat'iy qonun bilan himoyalangan. Ruxsatsiz ma'lumot tarqatish yoki kiberjinoyatlar uchun tegishli javobgarlik belgilanadi.<br><br>
+                        <b>3. Tavsiya:</b> Axborot xavfsizligi qoidalariga rioya qilish va raqamli resurslardan foydalanishda huquqiy normalarga amal qilish zarur.
+                    `;
+                }
+
+                chatBox.innerHTML += `<div class="chat-message ai-msg">${aiReply}</div>`;
                 chatBox.scrollTop = chatBox.scrollHeight;
             }, 1000);
         }
