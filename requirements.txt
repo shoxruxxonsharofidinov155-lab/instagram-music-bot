@@ -2,3 +2,4 @@ aiogram
 aiohttp
 instaloader
 ShazamAPI
+audioop-lts
