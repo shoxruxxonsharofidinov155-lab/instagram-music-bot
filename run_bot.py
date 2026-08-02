@@ -22,7 +22,7 @@ async def start_dummy_server():
     await site.start()
 
 # --- Bot Sozlamalari ---
-BOT_TOKEN = "YOUR_NEW_BOT_TOKEN_HERE"  # BotFather'dan olingan yangi token
+BOT_TOKEN = "AAHrdd5NOBWgzf_UzHjL-btoNYqMKyYPXxE" 
 
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
