@@ -27,7 +27,6 @@ BOT_TOKEN = "8632342746:AAHrdd5NOBWgzf_UzHjL-btoNYqMKyYPXxE"
 
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
-shazam = Shazam()
 L = instaloader.Instaloader()
 
 @dp.message(F.text == "/start")
