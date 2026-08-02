@@ -3,17 +3,12 @@ import logging
 import os
 from aiogram import Bot, Dispatcher, F, types
 from aiogram.filters import Command
-from shazamio import Shazam
 import yt_dlp
 
-# Bot tokeningiz
 BOT_TOKEN = "8632342746:AAHYorlOiRZUR59M9r7_IQgkR4XnMYG0ry0"
 
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
-
-# Aniqlangan qo'shiqlar ma'lumotini vaqtincha saqlash uchun kesh (RAM)
-MUSIC_CACHE = {}
 
 @dp.message(Command("start"))
 async def start_handler(message: types.Message):
@@ -26,7 +21,7 @@ async def link_handler(message: types.Message):
     
     output_filename = "downloaded_video.mp4"
     
-   ydl_opts = {
+    ydl_opts = {
         'format': 'best[filesize<50M]/best',
         'outtmpl': output_filename,
         'noplaylist': True,
@@ -39,8 +34,8 @@ async def link_handler(message: types.Message):
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
         }
     }
+
     try:
-        # yt-dlp yordamida yuklab olish
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([url])
 
@@ -52,14 +47,13 @@ async def link_handler(message: types.Message):
                 video_file = types.FSInputFile(output_filename)
                 await message.answer_video(video=video_file)
             
-            # Yuklab bo'lingach faylni o'chirish
             os.remove(output_filename)
         else:
             await message.answer("❌ Yuklab olishda xatolik yuz berdi.\nSabab: Fayl topilmadi yoki havolada xatolik bor.")
             
     except Exception as e:
         print(f"Xatolik tafsiloti: {e}")
-        await message.answer("❌ Yuklab olishda xatolik yuz berdi.\nSabab: Profil yopiq bo'lishi yoki video hajmi Telegram ruxsat bergan chegaradan (50 MB) katta bo'lishi mumkin.")
+        await message.answer("❌ Yuklab olishda xatolik yuz berdi.\nSabab: YouTube/Instagram himoyasi yoki video hajmi chegaradan (50 MB) katta.")
         if os.path.exists(output_filename):
             os.remove(output_filename)
 
