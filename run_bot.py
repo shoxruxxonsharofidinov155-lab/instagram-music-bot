@@ -4,11 +4,11 @@ import uuid
 import aiohttp
 from aiohttp import web
 from aiogram import Bot, Dispatcher, F
-from aiogram.types import Message, FSInputFile, InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.types import Message, FSInputFile
 import instaloader
-from ShazamAPI import Shazam
+from shazamio import Shazam
 
-# --- Render Port / Dummy Web Server (Timed Out bermasligi uchun) ---
+# --- Render Dummy Web Server (Timed Out bermasligi uchun) ---
 async def handle(request):
     return web.Response(text="Bot uzluksiz ishlamoqda!")
 
@@ -22,24 +22,44 @@ async def start_dummy_server():
     await site.start()
 
 # --- Bot Sozlamalari ---
-# BotFather bergan yangi tokeningizni quyidagi qo'shtirnoq ichiga yozing:
-BOT_TOKEN = "8632342746:AAHrdd5NOBWgzf_UzHjL-btoNYqMKyYPXxE"
+BOT_TOKEN = "YOUR_NEW_BOT_TOKEN_HERE"  # BotFather'dan olingan yangi token
 
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
+shazam = Shazam()
 L = instaloader.Instaloader()
 
 @dp.message(F.text == "/start")
-def cmd_start(message: Message):
-    message.answer("Salom! Menga Instagram link yuboring yoki musiqa izlash uchun audio/video yuboring.")
+async def cmd_start(message: Message):
+    await message.answer("Salom! Menga Instagram link yuboring yoki musiqa izlash uchun audio/video yuboring.")
+
+@dp.message(F.audio | F.voice | F.video)
+async def recognize_music(message: Message):
+    msg = await message.answer("🔍 Musiqa qidirilmoqda...")
+    file_id = message.audio.file_id if message.audio else (message.voice.file_id if message.voice else message.video.file_id)
+    file = await bot.get_file(file_id)
+    file_path = f"{uuid.uuid4()}.mp3"
+    await bot.download_file(file.file_path, file_path)
+    
+    try:
+        out = await shazam.recognize(file_path)
+        track = out.get('track')
+        if track:
+            title = track.get('title')
+            subtitle = track.get('subtitle')
+            await msg.edit_text(f"🎵 **Topildi:** {title} - {subtitle}")
+        else:
+            await msg.edit_text("❌ Musiqa topilmadi.")
+    except Exception as e:
+        await msg.edit_text("❌ Xatolik yuz berdi.")
+    finally:
+        if os.path.exists(file_path):
+            os.remove(file_path)
 
 # --- Asosiy Ishga Tushirish ---
 async def main():
-    # 1. Dummy serverni ishga tushiramiz (Render o'chirib qo'ymasligi uchun)
     await start_dummy_server()
     print("Musiqa tanish va Instagram bot ishga tushdi...")
-    
-    # 2. Telegram bot pollingni boshlaymiz
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
